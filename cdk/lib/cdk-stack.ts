@@ -25,6 +25,7 @@ export class CdkStack extends cdk.Stack {
       })
     );
 
+    
     // const s3redirectBucket = new Bucket(this, 'cijug-redirect-bucket', {
     //   bucketName: 'cijug.net',
     //   encryption: BucketEncryption.S3_MANAGED,
