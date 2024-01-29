@@ -25,32 +25,32 @@ export class CdkStack extends cdk.Stack {
       })
     );
 
-    const s3redirectBucket = new Bucket(this, 'cijug-redirect-bucket', {
-      bucketName: 'cijug.net',
-      encryption: BucketEncryption.S3_MANAGED,
-      objectOwnership: ObjectOwnership.OBJECT_WRITER,
-      websiteRedirect: {
-        hostName: 'www.cijug.net',
-        protocol: RedirectProtocol.HTTPS
-      },
-      blockPublicAccess: {
-		    blockPublicPolicy: false,
-		    blockPublicAcls: false,
-		    ignorePublicAcls: false,
-		    restrictPublicBuckets: false,
-	    }
-    });
+    // const s3redirectBucket = new Bucket(this, 'cijug-redirect-bucket', {
+    //   bucketName: 'cijug.net',
+    //   encryption: BucketEncryption.S3_MANAGED,
+    //   objectOwnership: ObjectOwnership.OBJECT_WRITER,
+    //   websiteRedirect: {
+    //     hostName: 'www.cijug.net',
+    //     protocol: RedirectProtocol.HTTPS
+    //   },
+    //   blockPublicAccess: {
+		//     blockPublicPolicy: false,
+		//     blockPublicAcls: false,
+		//     ignorePublicAcls: false,
+		//     restrictPublicBuckets: false,
+	  //   }
+    // });
 
-    s3redirectBucket.addToResourcePolicy(
-      new PolicyStatement({
-        resources: [
-          s3redirectBucket.arnForObjects("*"),
-          s3redirectBucket.bucketArn
-        ],
-        actions: ["s3:List*", "S3:Get*"],
-        principals: [new AnyPrincipal()],
-      })
-    );
+    // s3redirectBucket.addToResourcePolicy(
+    //   new PolicyStatement({
+    //     resources: [
+    //       s3redirectBucket.arnForObjects("*"),
+    //       s3redirectBucket.bucketArn
+    //     ],
+    //     actions: ["s3:List*", "S3:Get*"],
+    //     principals: [new AnyPrincipal()],
+    //   })
+    // );
 
     const s3bucket = new Bucket(this, 'cijug-bucket', {
       bucketName: 'www.cijug.net',
