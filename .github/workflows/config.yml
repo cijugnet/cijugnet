@@ -1,0 +1,33 @@
+name: 1. Configure AWS Creds
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  AWS_REGION: "us-east-1"
+
+permissions:
+  id-token: write # This is required for aws oidc connection
+  contents: write # This is required for actions/checkout
+  pull-requests: write # This is required for gh bot to comment PR
+
+concurrency:
+  group: deployment_sequence
+  cancel-in-progress: true
+
+jobs:
+  test_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS credentials from AWS account
+      uses: aws-actions/configure-aws-credentials@v1-node16
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE }}
+        aws-region: ${{ env.AWS_REGION }}
+        role-session-name: GitHub-OIDC
+        role-duration-seconds: 1200
