@@ -25,7 +25,7 @@ export class CdkStack extends cdk.Stack {
       })
     );
 
-    
+
     // const s3redirectBucket = new Bucket(this, 'cijug-redirect-bucket', {
     //   bucketName: 'cijug.net',
     //   encryption: BucketEncryption.S3_MANAGED,
@@ -53,36 +53,36 @@ export class CdkStack extends cdk.Stack {
     //   })
     // );
 
-    const s3bucket = new Bucket(this, 'cijug-bucket', {
-      bucketName: 'www.cijug.net',
-      encryption: BucketEncryption.S3_MANAGED,
-      websiteIndexDocument: 'index.html',
-      objectOwnership: ObjectOwnership.OBJECT_WRITER,
-      versioned: true,
-	    blockPublicAccess: {
-		    blockPublicPolicy: false,
-		    blockPublicAcls: false,
-		    ignorePublicAcls: false,
-		    restrictPublicBuckets: false,
-	    },
-      serverAccessLogsBucket: s3ServerLogsBucket
-    });
+    // const s3bucket = new Bucket(this, 'cijug-bucket', {
+    //   bucketName: 'www.cijug.net',
+    //   encryption: BucketEncryption.S3_MANAGED,
+    //   websiteIndexDocument: 'index.html',
+    //   objectOwnership: ObjectOwnership.OBJECT_WRITER,
+    //   versioned: true,
+	  //   blockPublicAccess: {
+		//     blockPublicPolicy: false,
+		//     blockPublicAcls: false,
+		//     ignorePublicAcls: false,
+		//     restrictPublicBuckets: false,
+	  //   },
+    //   serverAccessLogsBucket: s3ServerLogsBucket
+    // });
 
-    s3bucket.addToResourcePolicy(
-      new PolicyStatement({
-        resources: [
-          s3bucket.arnForObjects("*"),
-          s3bucket.bucketArn
-        ],
-        actions: ["s3:List*", "S3:Get*"],
-        principals: [new AnyPrincipal()]
-      })
-    );
+    // s3bucket.addToResourcePolicy(
+    //   new PolicyStatement({
+    //     resources: [
+    //       s3bucket.arnForObjects("*"),
+    //       s3bucket.bucketArn
+    //     ],
+    //     actions: ["s3:List*", "S3:Get*"],
+    //     principals: [new AnyPrincipal()]
+    //   })
+    // );
 
-    new BucketDeployment(this, 'cijug-bucket-deployment', {
-      sources: [Source.asset('../app')],
-      destinationBucket: s3bucket
-    });
+    // new BucketDeployment(this, 'cijug-bucket-deployment', {
+    //   sources: [Source.asset('../app')],
+    //   destinationBucket: s3bucket
+    // });
 
 
     
